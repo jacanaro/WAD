@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="shortcut icon" type="image/x-icon" href="images/icon_map.ico">
+    <title>AdViz</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6r6VNSQh_pXayQ1yY3-NOp_0rKzaukZ4&callback=initMap&libraries=&v=weekly"
+            defer ></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+</head>
+
+
+<body>
+
+<!-- Start Log In -->
+
+
+<div class="container" id="logIn">
+
+    <h1>Log in</h1>
+
+    <div>
+
+        <form action=”/survey" method="POST" id="loginForm">
+            <div>
+
+                <input type="text" id="user" name="username"
+                       placeholder="Username" required/><br> <br>
+            </div>
+
+            <div>
+                <input type="password" id="password" name="password"
+                       placeholder="Password" required/><br> <br>
+            </div>
+
+            <br>
+
+            <button type="submit" id="submit" value="submit">Login</button>
+            <br> <br>
+        </form>
+
+        <p id="loginFail"></p>
+
+    </div>
+
+</div>
+
+
+<!-- End Log In -->
+
+
+<!-- Logged in -->
+<div id="loggedIn">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>AdViz</h1>
+        <p id="loginData"></p>
+        <button onclick="handleLogout()">Logout</button>
+        <br> <br>
+    </div>
+    <div id="test"></div>
+
+    <!-- Start Main Frame -->
+
+
+    <div class="grid-container">
+
+        <div class="grid-item-links">
+            <h1>Contacts</h1>
+
+
+            <div id="displayedContacts">
+
+            </div>
+
+        </div>
+        <div class="grid-item">
+
+            <div id="map"
+                 frameborder = "0" style = "border: 0;"
+                 allowfullscreen = "" aria-hidden="false" tabindex="0"></div>
+
+        </div>
+
+        <div class="grid-item-links">
+            <button type="button" onclick="showAllContacts()">Show all
+                contacts
+            </button>
+            <br> <br>
+            <button type="button" onclick="showMyContacts()">Show my
+                contacts
+            </button>
+            <br> <br>
+            <button onclick="displayAddNewContact(true)">Add new contact</button>
+
+
+            <div id="addNewContact">
+                <br><br>
+
+                <div>
+                    <form id="addNewContactForm" onsubmit="return false;">
+                        <div>
+                            <input type="text" id="addNewTitle" name="addNewTitle" placeholder="Title"><br>
+                            <br>
+                        </div>
+
+                        <div>
+                            <label for="addNewGeschlecht">Gender:</label> <select
+                                name="geschlecht" id="addNewGeschlecht">
+                            <option value="not specified">not specified</option>
+                            <option value="female">female</option>
+                            <option value="male">male</option>
+                            <option value="diverse">diverse</option>
+
+                        </select> <br> <br>
+                        </div>
+
+                        <div>
+                            <input type="text" id="addNewVorname" name="vorname"
+                                   placeholder="Name*" required/><br> <br>
+                        </div>
+
+                        <div>
+                            <input type="text" id="addNewNachname" name="nachname"
+                                   placeholder="Surname*" required/><br> <br>
+                        </div>
+
+                        <div>
+                            <input type="text" id="addNewStrasseUndHausnummer" name="strassehnr"
+                                   placeholder="Street and no.*" required/>
+                            <br>
+                            <br>
+                        </div>
+
+                        <div>
+                            <input type="number" id="addNewPlz" name="plz"
+                                   placeholder="Zip Code*" required/>
+                            <br>
+                            <br>
+                        </div>
+
+                        <div>
+                            <input type="text" id="addNewStadt" name="stadt" placeholder="City*"
+                                   required><br> <br>
+                        </div>
+
+                        <div>
+                            <input type="text" id="addNewLand" name="land" placeholder="Country*"
+                                   required><br> <br>
+                        </div>
+
+                        <div>
+                            <input type="text" id="addNewMailAdr" name="email"
+                                   placeholder="Mail Address"><br> <br>
+                        </div>
+
+                        <div>
+                            <input type="text" id="addNewSonstiges" name="sonstiges"
+                                   placeholder="Other"><br> <br>
+                        </div>
+
+                        <div>
+                            <label for="addNewPrivatCheck">Private Contact:</label> <input
+                                type="checkbox" id="addNewPrivatCheck" checked>
+                        </div>
+
+                        <p>*Required Fields</p>
+
+                        <button id="saveToCurrentUser" onclick="addNewContact(), this.form.reset();">Save</button>
+
+                        <br>
+
+                        <div id="displaySaveToNormalButton">
+                            <br>
+                            <button id="saveToNormaloID" onclick="saveToNormalo(), this.form.reset();">Save to Normalo
+                            </button>
+                        </div>
+                        <br>
+                        <button name="close" type="button" onclick="displayAddNewContact(false), this.form.reset();">Close</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Main Frame-->
+
+</div>
+<!-- End Logged in -->
+
+<!--Scripts-->
+<script>
+    document.getElementById("loggedIn").style.display = 'none';
+</script>
+
+<script>function displayAddNewContact(bool) {
+    if (bool === true) {
+        document.getElementById("addNewContact").style.display = 'block';
+        if (username === "admina") {
+            document.getElementById("displaySaveToNormalButton").style.display = 'block';
+        } else {
+            document.getElementById("displaySaveToNormalButton").style.display = 'none';
+        }
+    }
+    else {
+        document.getElementById("addNewContact").style.display = 'none';
+        document.getElementById("displaySaveToNormalButton").style.display = 'none';
+
+
+    }
+}
+</script>
+<script src="javascripts/showAllContacts.js">
+</script>
+<script src="javascripts/showMyContacts.js">
+</script>
+<script src="javascripts/addNewContact.js">
+</script>
+<script src="javascripts/requestAndCreateContactsAndMarker.js">
+</script>
+<script src="javascripts/createContactFormAndMapMarker.js">
+</script>
+<script src="javascripts/login.js">
+</script>
+<script src="javascripts/logOut.js">
+</script>
+<script src="javascripts/initMap.js"></script>
+<script src="javascripts/createMapMarker.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://www.parsecdn.com/js/parse-1.4.2.min.js"></script>
+<script src="javascripts/deleteContactsFromClient.js"></script>
+<script src="javascripts/getCurrentUser.js"></script>
+<script src="javascripts/saveToNormalo.js"></script>
+</body>
+</html>

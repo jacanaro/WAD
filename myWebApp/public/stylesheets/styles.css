@@ -1,0 +1,85 @@
+body {
+    background-color: lightblue;
+    align-content: center;
+    margin: fill;
+}
+
+.header {
+    font-style: italic;
+    text-align: center;
+    background: rgba(52, 180, 180, 0.76);
+    color: white;
+    font-size: 30px;
+    padding: 5px;
+
+}
+
+.header.p {
+    font-style: initial;
+}
+
+iframe {
+    width: 100%;
+}
+
+button {
+    border-color: rgba(52, 180, 180, 0.76);
+    background-color: rgba(52, 180, 180, 0.76);
+    color: white;
+    width: 100px;
+}
+button:hover {
+    background-color: lightblue;
+    color: white;
+}
+h1 {
+    color: white;
+    margin-top: 0px;
+}
+
+label {
+    color: white;
+    display: inline-block
+
+}
+
+p {
+    color: white;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto 700px auto;
+    padding: 20px;
+    margin: auto;
+}
+
+.grid-item {
+    text-align: center;
+}
+
+.grid-item-links {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.container {
+    padding: 20px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30em;
+
+}
+summary {
+    color: white;
+}
+summary:focus {
+    outline: none;
+    color: rgba(52, 180, 180, 0.76);
+}
+
+#map {
+    height: 40em;
+}
+
